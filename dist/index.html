@@ -15,10 +15,31 @@
     <script id="fragmentShader" type="x-shader/x-fragment">
         uniform float time;
         uniform vec2 resolution;
+
+        const int max_iteration = 10000;
+
+        int mandelbrot(vec2 c) {
+            vec2 z = vec2(0.0, 0.0);
+
+            for (int iteration = 0; iteration < max_iteration; iteration++) {
+                if (dot(z, z) > 4.0)
+                    return iteration;
+                z = vec2(z.x*z.x - z.y*z.y, 2.0*z.x*z.y) + c;
+            }
+
+            return max_iteration;
+        }
+
         void main()	{
-            float x = mod(time + gl_FragCoord.x, 20.) < 10. ? 1. : 0.;
-            float y = mod(time + gl_FragCoord.y, 20.) < 10. ? 1. : 0.;
-            gl_FragColor = vec4(vec3(min(x, y)), 1.);
+            vec2 c = vec2(-2.0, -1.5) + vec2(gl_FragCoord.x / resolution.x, gl_FragCoord.y / resolution.y) * vec2(3.0, 3.0);
+
+            int iteration = mandelbrot(c);
+
+            vec4 c1 = vec4(0.0, 0.0, 0.0, 1.0);
+            vec4 c2 = vec4(1.0, 1.0, 1.0, 1.0);
+            float t = float(iteration) / float(max_iteration);
+
+            gl_FragColor = c1 * (1.0 - t) + c2 * t;
         }
     </script>
 
