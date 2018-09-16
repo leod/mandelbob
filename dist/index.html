@@ -5,6 +5,10 @@
   </head>
   <body>
     <div id="view" style="width:1024px;height:768px"></div>
+    <div id="info">
+        <p id="center"></p>
+        <p id="zoom"></p>
+    </div>
 
     <script id="vertexShader" type="x-shader/x-vertex">
         uniform float time;
@@ -15,6 +19,8 @@
     </script>
     
     <script id="fragmentShader" type="x-shader/x-fragment">
+        //#extension GL_ARB_gpu_shader_fp64 : enable
+
         uniform float time;
         uniform vec2 resolution;
         uniform vec2 center;
@@ -39,7 +45,7 @@
             vec2 aspectThing = vec2(1.0, resolution.y / resolution.x);
             float size = 1.2;
             float aspectWhat = aspectThing.y;
-            vec2 c = center + size / zoom * centeredScreenCord * aspectThing * aspectWhat;
+            vec2 c = center + size / zoom * centeredScreenCord * aspectThing / aspectWhat;
 
             int iteration = mandelbrot(c);
 
