@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/leod/mandelbob#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "three": "^0.96.0"
   },
   "devDependencies": {
     "webpack": "^4.19.0",
