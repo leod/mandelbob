@@ -1,13 +1,15 @@
+import * as THREE from 'three';
+
 export class Controls {
     constructor() {
         window.addEventListener("keydown", this, false);
         window.addEventListener("keyup", this, false);
 
         this.pressed = {}
-        this.center = [0.0, 0.0];
+        this.center = new THREE.Vector2(0.0, 0.0);
         this.zoom = 1.0;
         this.moveSpeed = 1.0;
-        this.zoomSpeed = 0.1;
+        this.zoomSpeed = 0.5;
         this.minZoom = 0.1;
     }
 
@@ -27,24 +29,22 @@ export class Controls {
 
     // Perform camera movement
     update(dt) {
-        var dx = 0.0;
-        var dy = 0.0;
+        var dir = new THREE.Vector2(0.0, 0.0);
         if (this.pressed["d"]) 
-            dx += 1.0;
+            dir.x += 1.0;
         if (this.pressed["a"]) 
-            dx -= 1.0;
+            dir.x -= 1.0;
         if (this.pressed["w"]) 
-            dy += 1.0;
+            dir.y += 1.0;
         if (this.pressed["s"]) 
-            dy -= 1.0;
+            dir.y -= 1.0;
 
-        this.center[0] += this.moveSpeed / this.zoom * dx * dt;
-        this.center[1] += this.moveSpeed / this.zoom * dy * dt;
+        this.center.addScaledVector(dir, this.moveSpeed / this.zoom * dt);
 
         if (this.pressed["PageUp"])
-            this.zoom += this.zoomSpeed * dt;
+            this.zoom += this.zoomSpeed * this.zoom * dt;
         if (this.pressed["PageDown"]) {
-            this.zoom -= this.zoomSpeed * dt;
+            this.zoom -= this.zoomSpeed * this.zoom * dt;
             this.zoom = Math.max(this.zoom, this.minZoom);
         }
     }
