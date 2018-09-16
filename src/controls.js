@@ -21,10 +21,10 @@ export class Controls {
     handleEvent(event) {
         switch (event.type) {
             case "keydown":
-                this.pressed[event.key] = true;
+                this.pressed[event.code] = true;
                 break;
             case "keyup":
-                this.pressed[event.key] = false;
+                this.pressed[event.code] = false;
                 break;
             default:
                 break;
@@ -34,17 +34,17 @@ export class Controls {
     // Perform camera movement
     update(dt) {
         var speedUp = 1.0;
-        if (this.pressed["Shift"])
+        if (this.pressed["ShiftLeft"])
             speedUp = 2.0;
 
         var dir = new THREE.Vector2(0.0, 0.0)
-        if (this.pressed["d"]) 
+        if (this.pressed["KeyD"]) 
             dir.x += 1.0;
-        if (this.pressed["a"]) 
+        if (this.pressed["KeyA"]) 
             dir.x -= 1.0;
-        if (this.pressed["w"]) 
+        if (this.pressed["KeyW"]) 
             dir.y += 1.0;
-        if (this.pressed["s"]) 
+        if (this.pressed["KeyS"]) 
             dir.y -= 1.0;
 
         this.center.addScaledVector(dir, this.moveSpeed * speedUp / this.zoom * dt);
