@@ -15,8 +15,10 @@
     <script id="fragmentShader" type="x-shader/x-fragment">
         uniform float time;
         uniform vec2 resolution;
+        uniform vec2 center;
+        uniform float zoom;
 
-        const int max_iteration = 10000;
+        const int max_iteration = 10;
 
         int mandelbrot(vec2 c) {
             vec2 z = vec2(0.0, 0.0);
