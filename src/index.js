@@ -34,6 +34,9 @@ function animate() {
     screenQuad.uniforms.center.value.y = controls.center.y;
     screenQuad.uniforms.zoom.value = controls.zoom;
     
+    document.getElementById("center").textContent = controls.center.x.toString() + " + " + controls.center.y.toString() + "i";
+    document.getElementById("zoom").textContent = Math.log2(controls.zoom.toString());
+    
     renderer.render(screenQuad.scene, screenQuad.camera);
 }
 
