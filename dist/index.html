@@ -23,18 +23,18 @@
         const vec2 viewSize = vec2(3.0, 3.0);
         const vec2 viewMin = vec2(-2.0, -1.5);
 
-        const int max_iteration = 1000;
+        const int maxIterations = 1000;
 
         int mandelbrot(vec2 c) {
             vec2 z = vec2(0.0, 0.0);
 
-            for (int iteration = 0; iteration < max_iteration; iteration++) {
+            for (int iteration = 0; iteration < maxIterations; iteration++) {
                 if (dot(z, z) > 4.0)
                     return iteration;
                 z = vec2(z.x*z.x - z.y*z.y, 2.0*z.x*z.y) + c;
             }
 
-            return max_iteration;
+            return maxIterations;
         }
 
         void main()	{
@@ -45,7 +45,7 @@
 
             vec4 c1 = vec4(0.0, 0.0, 0.0, 1.0);
             vec4 c2 = vec4(1.0, 1.0, 1.0, 1.0);
-            float t = float(iteration) / float(max_iteration);
+            float t = float(iteration) / float(maxIterations);
 
             gl_FragColor = c1 * (1.0 - t) + c2 * t;
         }
